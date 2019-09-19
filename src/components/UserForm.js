@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form } from 'semantic-ui-react';
-import { AccountConsumer } from '../providers/AccountProvider';
+import { UserConsumer } from '../providers/UserProvider';
 
 const membershipOptions = [
   {key: 'b', text: 'Bronze', value: 'Bronze'},
@@ -9,7 +9,7 @@ const membershipOptions = [
   {key: 'p', text: 'Platinum', value: 'Platinum'},
 ];
 
-class AccountForm extends React.Component {
+class UserForm extends React.Component {
   // sets the default values of state
   state = {
     username: this.props.username,
@@ -22,8 +22,8 @@ class AccountForm extends React.Component {
   // prevents the page from auto-reloading
   handleSubmit = (e) => {
     e.preventDefault();
-    const account = { ...this.state };
-    this.props.updateAccount(account);
+    const user = { ...this.state };
+    this.props.updateUser(user);
   }
 
   render() {
@@ -50,20 +50,20 @@ class AccountForm extends React.Component {
   };
 };
 
-const ConnectedAccountForm = (props) => {
+const ConnectedUserForm = (props) => {
   return (
-    <AccountConsumer>
+    <UserConsumer>
       { value => (
-        <AccountForm
+        <UserForm
         {...props}
         username={value.username}
         membershipLevel={value.membershipLevel}
-        updateAccount={value.updateAccount}
+        updateUser={value.updateUser}
         />
       )}
-    </AccountConsumer>
+    </UserConsumer>
   )
 }
 
 // export default AccountForm;
-export default ConnectedAccountForm;
+export default ConnectedUserForm;

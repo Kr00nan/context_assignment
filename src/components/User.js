@@ -1,9 +1,9 @@
 import React from 'react';
 import { Card } from 'semantic-ui-react';
-import { AccountConsumer } from '../providers/AccountProvider';
+import { UserConsumer } from '../providers/UserProvider';
 
 const Account = () => (
-  <AccountConsumer>
+  <UserConsumer>
     {value => (
       <Card>
         <Card.Content>
@@ -17,7 +17,7 @@ const Account = () => (
         </Card.Content>
       </Card>
     )}
-  </AccountConsumer>
+  </UserConsumer>
 );
 
 export default Account;
