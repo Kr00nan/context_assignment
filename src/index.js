@@ -1,12 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
+import AccountProvider from './components/AccountProvider';
 import 'semantic-ui-css/semantic.min.css';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 ReactDOM.render(
-  <Router>
-    <App />
-  </Router>,
+  <AccountProvider>
+    <Router>
+      <App />
+    </Router>
+  </AccountProvider>,
   document.getElementById('root')
 );
