@@ -12,15 +12,19 @@ const membershipOptions = [
 class AccountForm extends React.Component {
   // sets the default values of state
   state = {
-    username: '',
-    membershipLevel: ''
+    username: this.props.username,
+    membershipLevel: this.props.membershipLevel
   }
 
   // as the values change, state is updated with the new values
   handleChange = (e, { name, value }) => this.setState({ [name]: value });
 
   // prevents the page from auto-reloading
-  handleSubmit = (e) => e.preventDefault();
+  handleSubmit = (e) => {
+    e.preventDefault();
+    const account = { ...this.state };
+    this.props.updateAccount(account);
+  }
 
   render() {
     const { username, membershipLevel} = this.state;
@@ -46,4 +50,20 @@ class AccountForm extends React.Component {
   };
 };
 
-export default AccountForm;
+const ConnectedAccountForm = (props) => {
+  return (
+    <AccountConsumer>
+      { value => (
+        <AccountForm
+        {...props}
+        username={value.username}
+        membershipLevel={value.membershipLevel}
+        updateAccount={value.updateAccount}
+        />
+      )}
+    </AccountConsumer>
+  )
+}
+
+// export default AccountForm;
+export default ConnectedAccountForm;
