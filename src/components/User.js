@@ -2,22 +2,28 @@ import React from 'react';
 import { Card } from 'semantic-ui-react';
 import { UserConsumer } from '../providers/UserProvider';
 
-const Account = () => (
+const User = () => (
   <UserConsumer>
     {value => (
       <Card>
         <Card.Content>
-          <Card.Header>{value.username}</Card.Header>
+          <Card.Header>{value.firstName} {value.lastName}</Card.Header>
+          <br />
+          <Card.Header>{value.email}</Card.Header>
+          <br />
           <Card.Meta>
-            Member Since: {value.dateJoined}
+            Cohort Start Date: {value.dateStarted}
+          </Card.Meta>
+          <Card.Meta>
+            Expected End Date: {value.dateFinished}
           </Card.Meta>
         </Card.Content>
         <Card.Content>
-          <p>Membership Level: {value.membershipLevel}</p>
+          <p>Status: {value.graduated ? 'Graduated' : 'Not Graduated'}</p>
         </Card.Content>
       </Card>
     )}
   </UserConsumer>
 );
 
-export default Account;
+export default User;

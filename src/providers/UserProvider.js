@@ -9,9 +9,13 @@ export const UserConsumer = UserContext.Consumer;
 // create the provider using traditional React.Component class
 class UserProvider extends React.Component {
   state = {
-    username: 'Michael Kroon',
-    dateJoined: '19 SEP 19',
-    membershipLevel: 'Silver',
+    firstName: 'Michael',
+    lastName: 'Kroon',
+    email: 'kroonology@gmail.com',
+    avatarSrc: 'https://robohash.org/',
+    dateStarted: () => {new Date(2019, 8, 12).toDateString()},
+    dateFinished: () => {new Date(2019, 10, 25).toDateString()},
+    graduated: false,
     updateUser: (user) => {this.setState({...user})}
   };
 

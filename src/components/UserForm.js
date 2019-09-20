@@ -1,13 +1,9 @@
 import React from 'react';
 import { Form } from 'semantic-ui-react';
-import { UserConsumer } from '../providers/UserProvider';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
-const membershipOptions = [
-  {key: 'b', text: 'Bronze', value: 'Bronze'},
-  {key: 's', text: 'Silver', value: 'Silver'},
-  {key: 'g', text: 'Gold', value: 'Gold'},
-  {key: 'p', text: 'Platinum', value: 'Platinum'},
-];
+import { UserConsumer } from '../providers/UserProvider';
 
 class UserForm extends React.Component {
   // sets the default values of state
@@ -27,23 +23,51 @@ class UserForm extends React.Component {
   }
 
   render() {
-    const { username, membershipLevel} = this.state;
+    const { firstName, lastName, email, graduated } = this.state;
 
     return (
       <Form onSubmit={this.handleSubmit}>
-        <Form.Input 
-        label='New Username'
-        type='text'
-        name='username'
-        value={username}
-        onChange={this.handleChange}/>
-        <Form.Select 
-        label='Membership Level'
-        name='membershipLevel'
-        value={membershipLevel}
-        onChange={this.handleChange}
-        options={membershipOptions}/>
-        <Form.Button color='blue'>Save</Form.Button>
+        <Form.Group widths='equal'>
+          <Form.Input
+            label='First Name'
+            type='text'
+            name='firstName'
+            value={firstName}
+            onChange={this.handleChange}
+          />
+          <Form.Input
+            label='Last Name'
+            type='text'
+            name='lastName'
+            value={lastName}
+            onChange={this.handleChange}
+          />
+        </Form.Group>
+        <Form.Input
+          label='Email'
+          type='text'
+          name='email'
+          value={email}
+          onChange={this.handleChange}
+        />
+        <Form.Group>
+          <DatePicker 
+          selected={new Date()}
+          label='Cohort Start Date'
+          placeholderText='Click to select date'
+          name='dateStarted'
+          // value={selected}
+          // onChange={date => setStartDate(date)} 
+          onChange={this.handleChange}
+          />
+          <Form.Checkbox
+            label='Graduated'
+            name='graduated'
+            value={graduated}
+            onChange={this.handleChange}
+          />
+        </Form.Group>
+        <Form.Button color='blue'>Update User</Form.Button>
       </Form>
     )
 
@@ -53,12 +77,14 @@ class UserForm extends React.Component {
 const ConnectedUserForm = (props) => {
   return (
     <UserConsumer>
-      { value => (
+      {value => (
         <UserForm
-        {...props}
-        username={value.username}
-        membershipLevel={value.membershipLevel}
-        updateUser={value.updateUser}
+          {...props}
+          firstName={value.firstName}
+          lastName={value.lastName}
+          email={value.email}
+          dateStarted={value.dateStarted}
+          updateUser={value.updateUser}
         />
       )}
     </UserConsumer>
